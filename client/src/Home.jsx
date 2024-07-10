@@ -4,6 +4,11 @@ import { getArticles } from './services/articles'
 import { Feedlist } from './components/Feedlist'
 import { Newsfeed } from './components/Newsfeed'
 
+const articleConfig = [
+  { key: 'bytebytego', title: 'Bytebytego' },
+  { key: 'logRocket', title: 'Logrocket' },
+  { key: 'codingHorror', title: 'Coding Horror' },
+]
 
 export default function Home() {
   const {data: articles, isLoading, isError} = useQuery({
@@ -19,23 +24,19 @@ export default function Home() {
     return <div>Errored out</div>
   }
 
-  const byteArticles = articles.bytebytego ? articles.bytebytego : []
-  const logRocket = articles.logRocket ? articles.logRocket : []
-  const codingHorror = articles.codingHorror ? articles.codingHorror : []
-
-  const byte = "Bytebytego"
-  const logrocket = "Logrocket"
-  const codinghorror = "Coding Horror"
- 
   return (
     <>
         <Newsfeed />
         <h1 className='text-center font-mono text-3xl py-4'>
           My Feed
         </h1> 
-        <Feedlist articles = {byteArticles} blogTitle={byte}/>
-        <Feedlist articles={logRocket} blogTitle={logrocket}/>
-        <Feedlist articles={codingHorror} blogTitle={codinghorror} />
+        {articleConfig.map(({ key, title }) => (
+          <Feedlist
+            key={key}
+            articles={articles[key] || []}
+            blogTitle={title}
+          />
+        ))}
     </>
   )
 }
