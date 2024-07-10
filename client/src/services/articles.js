@@ -8,3 +8,8 @@ export const getArticles = async() => {
     const articles = await axios.get(baseURL)
     return articles.data
 }
+
+export const getNews = async() => {
+    const news = await axios.get(`${baseURL}news`)
+    return news.data
+}

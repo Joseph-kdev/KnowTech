@@ -9,6 +9,21 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 
+const newsURLs = [
+    {
+        key: "theVerge",
+        value: "https://www.theverge.com/rss/index.xml"
+    },
+    {
+        key: "techCrunch",
+        value: "https://techcrunch.com/feed"
+    },
+    {
+        key: "hackerNews",
+        value: "https://news.ycombinator.com/rss"
+    },
+]
+
 const feedURLs = [
     {   
         key: "bytebytego",
@@ -25,34 +40,54 @@ const feedURLs = [
 ]
 
 const parser = new RSSparser();
-const feedsData = {}
+const feedsCache = {
+    news: {},
+    articles: {}
+}
 
-const parseFeed = async feedInfo => {
+const parseFeed = async (feedInfo) => {
     try {
-        const {key, value} = feedInfo
+        const { key, value } = feedInfo;
         const feed = await parser.parseURL(value);
-        feedsData[key] = feed.items
+        return { [key]: feed.items };
     } catch (error) {
-        console.error('Error parsing feed', error);
+        console.error(`Error parsing feed ${feedInfo.key}:`, error);
+        return { [feedInfo.key]: [] };
     }
-}
-const parseFeeds = async() => {
-    const parsePromises = feedURLs.map(parseFeed);
-    await Promise.all(parsePromises);
-}
+};
 
-app.get('/', async(req, res) => {
+const parseFeeds = async (feeds) => {
+    const parsePromises = feeds.map(parseFeed);
+    const results = await Promise.all(parsePromises);
+    return Object.assign({}, ...results);
+};
+
+const getFeedsData = async (type) => {
+    if (Object.keys(feedsCache[type]).length === 0) {
+        feedsCache[type] = await parseFeeds(type === 'news' ? newsURLs : feedURLs);
+    }
+    return feedsCache[type];
+};
+
+app.get('/', async (req, res) => {
     try {
-        if (Object.keys(feedsData).length === 0) {
-            await parseFeeds();
-        }
-        res.send(feedsData);
+        const articlesData = await getFeedsData('articles');
+        res.json(articlesData);
     } catch (error) {
-        console.error('Error fetching feeds:', error);
-        res.status(500).send('Error fetching feeds.');
+        console.error('Error fetching article feeds:', error);
+        res.status(500).json({ error: 'Error fetching article feeds.' });
     }
-})
+});
 
+app.get('/news', async (req, res) => {
+    try {
+        const newsData = await getFeedsData('news');
+        res.json(newsData);
+    } catch (error) {
+        console.error('Error fetching news feeds:', error);
+        res.status(500).json({ error: 'Error fetching news feeds.' });
+    }
+});
 
 app.post('/summaries', async(req, res) => {
     const { actualUrl } = req.body
