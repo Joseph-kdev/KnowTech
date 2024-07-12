@@ -8,7 +8,7 @@ export const Feed = ({ title, content, link, pubDate, summarize }) => {
   const parsedContent = parse(content)
 
   return (
-    <div className='my-4 mx-1 px-3 py-2 bg-transparent shadow-slate-900'>
+    <div className='flex flex-col my-2'>
       <a href={link}>
         <h3 className='text-base font-semibold text-gray-800'>{title}</h3>
       </a>

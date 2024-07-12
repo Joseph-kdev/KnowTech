@@ -26,3 +26,34 @@
     -ms-border-radius: 15px;
     -o-border-radius: 15px;
 }
+
+.news-content figcaption{
+    font-size: 10px;
+    margin-left: 8px;
+}
+.news-content figure {
+    margin-bottom: 8px;
+}
+.news-content {
+}
+.news-content img {
+    max-width: 100%;
+    margin-bottom: 4px;
+}
+.news-content p {
+    display: none;
+}
+.news-content p:nth-of-type(1) {
+    display: block;
+    font-size: 12px;
+    line-height: 1.625;
+}
+
+
+/* @media screen and (max-width: 500px) {
+    .news-content p:nth-of-type(1) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+} */

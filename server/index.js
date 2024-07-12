@@ -20,7 +20,7 @@ const newsURLs = [
     },
     {
         key: "hackerNews",
-        value: "https://news.ycombinator.com/rss"
+        value: "https://thehackernews.com/feeds/posts/default"
     },
 ]
 
