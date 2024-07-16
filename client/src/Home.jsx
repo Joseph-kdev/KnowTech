@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query"
 import { getArticles } from './services/articles'
 import { Feedlist } from './components/Feedlist'
 import { Newsfeed } from './components/Newsfeed'
+import { Nav } from './components/Nav'
+
 
 const articleConfig = [
   { key: 'bytebytego', title: 'Bytebytego' },
@@ -26,8 +28,9 @@ export default function Home() {
 
   return (
     <>
+        <Nav />
         <Newsfeed />
-        <h1 className='text-center font-mono text-3xl py-4'>
+        {/* <h1 className='text-center font-mono text-3xl py-4'>
           My Feed
         </h1> 
         {articleConfig.map(({ key, title }) => (
@@ -36,7 +39,7 @@ export default function Home() {
             articles={articles[key] || []}
             blogTitle={title}
           />
-        ))}
+        ))} */}
     </>
   )
 }

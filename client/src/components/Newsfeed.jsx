@@ -4,6 +4,7 @@ import { getNews } from '../services/articles'
 import { decodeHTML } from 'entities'
 import parse from "html-react-parser"
 import { parseISO, parse as dateParse, format } from 'date-fns';
+import { useNewsConfig } from '../config/NewsContext'
 
 const NewsPiece = ({ title, link, content, author, pubDate }) => {
 
@@ -31,7 +32,7 @@ const NewsPiece = ({ title, link, content, author, pubDate }) => {
     title = decodeHTML(title)
     content = decodeHTML(content)
     const parsedContent = parse(content)
-    const formattedDate = formatPublicationDate(pubDate);
+    const formattedDate = formatPublicationDate(pubDate)
 
     return (
         <>
@@ -63,11 +64,12 @@ const NewsPiece = ({ title, link, content, author, pubDate }) => {
         </>
     )
 }
+
 const Newslist = ({ pieces, newsTitle }) => {
     const [showAll, setShowAll] = useState(false)
 
     return (
-        <div>
+        <div className='bg-orange-900 my-2 md:h-screen md:overflow-scroll'>
             <h1 className='font-mono text-2xl py-4'>
                 {newsTitle}
             </h1>
@@ -96,18 +98,25 @@ const Newslist = ({ pieces, newsTitle }) => {
                 </div>
                 ))}
             </div>
-            <button onClick={() => setShowAll(!showAll)}>
-                {showAll ? "Less" : "More"}
-            </button>
+            <div className='w-full flex justify-center'>
+                <button onClick={() => setShowAll(!showAll)} className='bg-orange-800 hover:bg-orange-700 text-white font-bold py-2 px-4'>
+                    {showAll ? 
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
+                    </svg>
+                    : 
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+                    </svg>
+                    }
+                </button>
+            </div>
         </div>
     )
 }
 export const Newsfeed = () => {
-    const newsConfig = [
-        { key: "theVerge", title: "The Verge" },
-        { key: "techCrunch", title: "TechCrunch" },
-        { key: "hackerNews", title: "The Hacker News" },
-    ]
+    const newsConfig = useNewsConfig()
 
     const {data: news, isLoading, isError } = useQuery({
         queryKey: ["news"],
@@ -123,19 +132,21 @@ export const Newsfeed = () => {
     }
 
   return (
-    <div className='px-2'>
+    <div className=''>
         <div>
             <h1 className='text-center font-roboto text-3xl py-4'>
                 News feed
             </h1>
         </div>
-        {newsConfig.map(({ key, title }) => (
-            <Newslist
-                key = {key}
-                pieces = {news[key] || []}
-                newsTitle = {title}
-            />
-        ))}
+        <div className='bg-black md:grid md:grid-cols-3 gap-1 md:h-screen overflow-scroll'>
+            {newsConfig.map(({ key, title }) => (
+                <Newslist
+                    key = {key}
+                    pieces = {news[key] || []}
+                    newsTitle = {title}
+                />
+            ))}
+        </div>
     </div>
   )
 }
