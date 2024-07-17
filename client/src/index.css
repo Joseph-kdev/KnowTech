@@ -48,7 +48,23 @@
     font-size: 12px;
     line-height: 1.625;
 }
+.page-content {
+    display: flex;
+}
+.news-content aside {
+    display: none;
+}
 
+@media screen and (min-width: 768px) {
+    .page-content img {
+        max-width: 300px;
+    }
+    .page-content figure {
+        min-width: 300px;
+        margin-right: 8px;
+    }
+ 
+}
 
 /* @media screen and (max-width: 500px) {
     .news-content p:nth-of-type(1) {

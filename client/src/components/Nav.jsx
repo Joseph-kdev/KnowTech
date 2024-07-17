@@ -46,6 +46,12 @@ export const Nav = () => {
           >
             <X size={24} />
           </button>
+
+          <div className='mt-8'>
+            <Link to="/" className="hover:text-gray-400">
+               Home
+            </Link>
+          </div>
           <h2 className="text-xs font-semibold text-gray-400 mb-4 mt-8">FEEDS</h2>
           <nav>
             <ul className="space-y-2">
@@ -60,7 +66,7 @@ export const Nav = () => {
                 <ul className="ml-4 mt-2 space-y-2">
                 {techExpanded && newsConfig.map(piece => (
                     <li key={piece.key}>
-                      <Link to={piece.key} className="flex items-center text-gray-400 hover:text-white">
+                      <Link to={`/news/${piece.key}`} className="flex items-center text-gray-400 hover:text-white">
                         {piece.title}
                       </Link>
                     </li>

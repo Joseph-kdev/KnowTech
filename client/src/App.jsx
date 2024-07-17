@@ -14,7 +14,7 @@ export default function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         {newsConfig.map(piece => (
-          <Route key={piece.key} path={`${piece.key}`} element={<Newspage title={piece.title} />} />
+          <Route key={piece.key} path={`/news/${piece.key}`} element={<Newspage title={piece.title} />} />
         ))}
       </Routes>
     </>

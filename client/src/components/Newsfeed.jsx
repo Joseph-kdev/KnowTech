@@ -7,7 +7,6 @@ import { parseISO, parse as dateParse, format } from 'date-fns';
 import { useNewsConfig } from '../config/NewsContext'
 
 const NewsPiece = ({ title, link, content, author, pubDate }) => {
-
     const formatPublicationDate = (dateString) => {
         let date;
         
@@ -28,6 +27,7 @@ const NewsPiece = ({ title, link, content, author, pubDate }) => {
         // Format the date
         return format(date, 'MMMM d, yyyy h:mm a');
       };
+
 
     title = decodeHTML(title)
     content = decodeHTML(content)
