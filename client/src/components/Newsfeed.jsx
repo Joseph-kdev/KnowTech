@@ -5,6 +5,7 @@ import { decodeHTML } from 'entities'
 import parse from "html-react-parser"
 import { parseISO, parse as dateParse, format } from 'date-fns';
 import { useNewsConfig } from '../config/NewsContext'
+import { useUserAuth } from '../config/UserAuthContext'
 
 const NewsPiece = ({ title, link, content, author, pubDate }) => {
     const formatPublicationDate = (dateString) => {
@@ -117,6 +118,7 @@ const Newslist = ({ pieces, newsTitle }) => {
 }
 export const Newsfeed = () => {
     const newsConfig = useNewsConfig()
+    const {user} = useUserAuth()
 
     const {data: news, isLoading, isError } = useQuery({
         queryKey: ["news"],
@@ -131,12 +133,19 @@ export const Newsfeed = () => {
         return <div>Errored Out</div>
     }
 
+    console.log(user);
+
   return (
     <div className=''>
-        <div>
+        <div className='relative'>
             <h1 className='text-center font-roboto text-3xl py-4'>
                 News feed
             </h1>
+            <div className='absolute top-5 right-3'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+            </div>
         </div>
         <div className='bg-black md:grid md:grid-cols-3 gap-1 md:h-screen overflow-scroll'>
             {newsConfig.map(({ key, title }) => (
