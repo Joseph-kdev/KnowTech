@@ -1,4 +1,4 @@
-const genAI = require("./config/gemini-start");
+const genAI = require("../config/gemini-start");
 
 const generateSummary = async (actualUrl) => {
   const model = genAI.getGenerativeModel({ model: "gemini-pro" });
