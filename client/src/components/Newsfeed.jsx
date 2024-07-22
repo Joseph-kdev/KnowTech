@@ -6,6 +6,8 @@ import parse from "html-react-parser"
 import { parseISO, parse as dateParse, format } from 'date-fns';
 import { useNewsConfig } from '../config/NewsContext'
 import { useUserAuth } from '../config/UserAuthContext'
+import Modal from "react-modal"
+import { LinkAdd } from './LinkAdd'
 
 const NewsPiece = ({ title, link, content, author, pubDate }) => {
     const formatPublicationDate = (dateString) => {
@@ -119,6 +121,7 @@ const Newslist = ({ pieces, newsTitle }) => {
 export const Newsfeed = () => {
     const newsConfig = useNewsConfig()
     const {user} = useUserAuth()
+    const [open, setOpen] = useState(false)
 
     const {data: news, isLoading, isError } = useQuery({
         queryKey: ["news"],
@@ -133,15 +136,44 @@ export const Newsfeed = () => {
         return <div>Errored Out</div>
     }
 
-    console.log(user);
+    const addRSSFeed = () => {
+        if(!user) {
+            alert("Please log in to add RSS feeds")
+        }
+        setOpen(true)
+    }
+
+    
+const links = [
+    {
+        name: "LifeHacker",
+        link: "https://lifehacker.com/feed/rss"
+    },
+    {
+        name: "Ars Technica",
+        link: "http://feeds.arstechnica.com/arstechnica/index"
+    },
+    {
+        name: "lifeHacker",
+        link: "https://lifehacker.com/feed/rss"
+    },
+    {
+        name: "lifeHacker",
+        link: "https://lifehacker.com/feed/rss"
+    },
+    
+]
 
   return (
     <div className=''>
         <div className='relative'>
+            <div>
+                <LinkAdd open={open} setOpen={setOpen} links={links}/>
+            </div>
             <h1 className='text-center font-roboto text-3xl py-4'>
                 News feed
             </h1>
-            <div className='absolute top-5 right-3'>
+            <div className='absolute top-5 right-3' onClick={addRSSFeed}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>

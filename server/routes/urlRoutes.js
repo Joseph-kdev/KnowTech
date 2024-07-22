@@ -6,6 +6,7 @@ router.post('/', async (req, res) => {
     try {
         const blogUrl = new BlogUrl({ user, rssUrl, rssUrlKey });
         await blogUrl.save();
+        console.log("blog added")
         res.send(blogUrl);
     } catch (error) {
         console.error('Error saving blog url:', error);

@@ -13,3 +13,8 @@ export const getNews = async() => {
     const news = await axios.get(`${baseURL}news`)
     return news.data
 }
+
+export const addRSSFeed = async(urlDetails) => {
+    const news = await axios.post(`${baseURL}saveurl`, urlDetails)
+    return news.data
+}
