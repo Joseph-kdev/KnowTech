@@ -2,7 +2,7 @@ POST http://localhost:3001/saveurl
 Content-Type: application/json
 
 {
-    "user": "832kweker33eourw",
-    "rssUrl": "Joey.com",
-    "rssUrlKey": "me-Page"
+    "user": "832kweker33eourwewerw453",
+    "rssUrl": "https://mashable.com/feeds/rss/all",
+    "rssUrlKey": "Mashable"
 }
