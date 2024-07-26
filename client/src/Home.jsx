@@ -1,45 +1,18 @@
 import React from 'react'
-import { useQuery } from "@tanstack/react-query"
-import { getArticles } from './services/articles'
-import { Feedlist } from './components/Feedlist'
+import { ArticleFeed } from './components/Feedlist'
 import { Newsfeed } from './components/Newsfeed'
 import { Nav } from './components/Nav'
 
 
-const articleConfig = [
-  { key: 'bytebytego', title: 'Bytebytego' },
-  { key: 'logRocket', title: 'Logrocket' },
-  { key: 'codingHorror', title: 'Coding Horror' },
-]
 
 export default function Home() {
-  const {data: articles, isLoading, isError} = useQuery({
-    queryKey: ["articles"],
-    queryFn: () => getArticles()
-  })
 
-  if(isLoading) {
-    return <div>Loading</div>
-  }
-
-  if(isError) {
-    return <div>Errored out</div>
-  }
 
   return (
     <>
         <Nav />
         <Newsfeed />
-        {/* <h1 className='text-center font-mono text-3xl py-4'>
-          My Feed
-        </h1> 
-        {articleConfig.map(({ key, title }) => (
-          <Feedlist
-            key={key}
-            articles={articles[key] || []}
-            blogTitle={title}
-          />
-        ))} */}
+        <ArticleFeed />
     </>
   )
 }

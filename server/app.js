@@ -17,7 +17,7 @@ app.use(cors({
 
 app.use(express.json())
 
-app.use('/', articleRoutes)
+app.use('/api/articles', articleRoutes)
 app.use('/api/news', newsRoutes)
 app.use('/summaries', summaryRoutes)
 app.use('/api/updateFeeds', urlRoutes)

@@ -1,48 +1,57 @@
-import React, { useState } from "react";
+import React from "react";
 import Modal from "react-modal";
 import { useUserAuth } from "../config/UserAuthContext";
 import { addRSSFeed } from "../services/articles"
-import { useNewsConfig } from "../config/NewsContext";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../config/firebase-config";
+import { useContentConfig } from "../config/ContentContext";
 
-
-export const LinkAdd = ({ open, setOpen, links }) => {
+export const LinkAdd = ({ open, setOpen, links, contentType }) => {
   const { user } = useUserAuth()
-  const {newsConfig, setNewsConfig} = useNewsConfig()
+  const { newsConfig, articleConfig, setNewsConfig, setArticleConfig } = useContentConfig()
   const closeModal = () => setOpen(false);
-  
+ 
   const addLink = async(link, name) => {
     if(!user) throw new Error("No user logged in")
-
-    const userFeedsRef = collection(db, `users/${user.uid}/news`)
-    
+    const userFeedsRef = collection(db, `users/${user.uid}/${contentType}`)
+   
     try {
       await addDoc(userFeedsRef, {
         key: name,
         value: link
       })
       console.log("Sent to firestore successfully")
-  
+ 
       const feedDetails = {
           user: user.uid,
           rssUrl: link,
-          rssUrlKey: name
+          rssUrlKey: name,
+          contentType: contentType
       }
       await addRSSFeed(feedDetails)
-      console.log("Added RSS Feed");
-      setNewsConfig(prevConfig => {
-        // Check if the feed already exists to avoid duplicates
-        if (!prevConfig.some(feed => feed.key === name)) {
-          return [...prevConfig, { key: name, title: name }];
-        }
-        return prevConfig;
-      });
+      console.log(`Added ${contentType} RSS Feed`);
+      
+      // Update the appropriate config based on contentType
+      if (contentType === 'news') {
+        setNewsConfig(prevConfig => {
+          if (!prevConfig.some(feed => feed.key === name)) {
+            return [...prevConfig, { key: name, title: name }];
+          }
+          return prevConfig;
+        });
+      } else if (contentType === 'articles') {
+        setArticleConfig(prevConfig => {
+          if (!prevConfig.some(feed => feed.key === name)) {
+            return [...prevConfig, { key: name, title: name }];
+          }
+          return prevConfig;
+        });
+      }
+      
       closeModal()
     } catch (error) {
-      console.log("Error adding link:", error);
+      console.log(`Error adding ${contentType} link:`, error);
     }
-  
   }
 
   return (
@@ -50,7 +59,7 @@ export const LinkAdd = ({ open, setOpen, links }) => {
       <Modal
         isOpen={open}
         onRequestClose={closeModal}
-        constentLabel="Add RSS Feed"
+        contentLabel="Add RSS Feed"
         shouldCloseOnOverlayClick={true}
         style={{
           overlay: {
@@ -62,7 +71,7 @@ export const LinkAdd = ({ open, setOpen, links }) => {
         <ul className="m-6">
             {links.map((link, index) => (
                 <li key={index + 1} className="my-2">
-                    <button  onClick={() => addLink(link.link, link.name)} className="bg-gray-300 p-2 rounded-md">
+                    <button onClick={() => addLink(link.link, link.name)} className="bg-gray-300 p-2 rounded-md">
                         {link.name}
                     </button>
                 </li>

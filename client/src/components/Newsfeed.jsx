@@ -1,12 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 import React, { useState } from 'react'
-import { getNews } from '../services/articles'
+import { getFeeds } from '../services/articles'
 import { decodeHTML } from 'entities'
 import parse from "html-react-parser"
 import { parseISO, parse as dateParse, format } from 'date-fns';
-import { useNewsConfig } from '../config/NewsContext'
+import { useContentConfig } from '../config/ContentContext'
 import { useUserAuth } from '../config/UserAuthContext'
-import Modal from "react-modal"
 import { LinkAdd } from './LinkAdd'
 
 const NewsPiece = ({ title, link, content, author, pubDate }) => {
@@ -119,13 +118,13 @@ const Newslist = ({ pieces, newsTitle }) => {
     )
 }
 export const Newsfeed = () => {
-    const {newsConfig} = useNewsConfig()
+    const {newsConfig} = useContentConfig()
     const {user} = useUserAuth()
     const [open, setOpen] = useState(false)
 
     const {data: news, isLoading, isError } = useQuery({
         queryKey: ["news"],
-        queryFn: () => getNews(user.uid)
+        queryFn: () => getFeeds("news", user.uid)
     })
 
     if(isLoading) {
@@ -168,7 +167,7 @@ const links = [
     <div className=''>
         <div className='relative'>
             <div>
-                <LinkAdd open={open} setOpen={setOpen} links={links}/>
+                <LinkAdd open={open} setOpen={setOpen} links={links} contentType="news"/>
             </div>
             <h1 className='text-center font-roboto text-3xl py-4'>
                 News feed

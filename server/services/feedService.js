@@ -32,29 +32,25 @@ const feedURLs = [
 ]
 
 
-const addNewUrl = async(type, newUrl, userId) => {
-    if (type === 'news') {
-       const userFeedsRef = db.collection(`users/${userId}/news`);
+const addNewUrl = async(type, newUrl, userId, contentType) => {
+       const userFeedsRef = db.collection(`users/${userId}/${contentType}`);
        try {
            await userFeedsRef.add(({
             key: newUrl.key,
             value: newUrl.value
            }))
        } catch (error) {
-           console.log("Error adding new url to Firestore: ", error)
+           console.log(`Error adding new ${contentType} url to Firestore: `, error)
            throw error
        }
-    } else if (type === 'articles') {
-        feedURLs.push(newUrl);
-    }
   
 };
 
 const getFeedsData = async (type, userId) => {
-   let urls = type === 'news' ? [...newsURLs] : feedURLs;
+   let urls = type === 'news' ? [...newsURLs] : [...feedURLs];
 
-   if (type === "news" && userId) {
-    const userFeedsRef = db.collection(`users/${userId}/news`);
+   if (type && userId) {
+    const userFeedsRef = db.collection(`users/${userId}/${type}`);
     const userFeedsSnapshot = await userFeedsRef.get();
     const userFeeds = userFeedsSnapshot.docs.map(doc => ({
         key: doc.data().key,

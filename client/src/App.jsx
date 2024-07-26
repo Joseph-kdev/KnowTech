@@ -2,11 +2,11 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './Home'
 import { Login } from './components/Login'
-import { useNewsConfig } from './config/NewsContext'
 import { Newspage } from './components/Newspage'
+import { useContentConfig } from './config/ContentContext'
 
 export default function App() {
-  const {newsConfig} = useNewsConfig()
+  const { newsConfig, articleConfig } = useContentConfig()
 
   return (
     <>
@@ -16,6 +16,10 @@ export default function App() {
         {newsConfig.map(piece => (
           <Route key={piece.key} path={`/news/${piece.key}`} element={<Newspage title={piece.title} />} />
         ))}
+
+        {/* {articleConfig.map(piece => (
+          <Route key={piece.key} path={`/articles/${piece.key}`} element={<Newspage title={piece.title} />} />
+        ))} */}
       </Routes>
     </>
   )

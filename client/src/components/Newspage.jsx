@@ -1,10 +1,11 @@
 import React from 'react'
-import { getNews } from '../services/articles'
+import { getFeeds } from '../services/articles'
 import { useQuery } from "@tanstack/react-query"
-import { useNewsConfig } from '../config/NewsContext'
+import { useContentConfig } from '../config/ContentContext'
 import { decodeHTML } from 'entities'
 import parse from "html-react-parser"
 import { Nav } from './Nav'
+import { useUserAuth } from '../config/UserAuthContext'
 
 const PageItem = ({ title, content, author, pubDate, link }) => { 
   title = decodeHTML(title)
@@ -25,12 +26,13 @@ const PageItem = ({ title, content, author, pubDate, link }) => {
 }
 
 export const Newspage = ({ title }) => {
-    const {newsConfig} = useNewsConfig()
+    const {newsConfig } = useContentConfig()
     const newsPiece = newsConfig.find(piece => piece.title === title)
+    const { user } = useUserAuth()
 
     const {data: news, isLoading, isError } = useQuery({
         queryKey: ["news"],
-        queryFn: () => getNews()
+        queryFn: () => getFeeds("news", user.uid)
     })
 
     if(isLoading) {

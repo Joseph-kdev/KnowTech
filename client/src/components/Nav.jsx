@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
 import { X, Menu, ChevronDown, ChevronRight} from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { useNewsConfig } from '../config/NewsContext';
+import { useContentConfig } from '../config/ContentContext';
 
 
 export const Nav = () => {
-    const {newsConfig} = useNewsConfig()
+    const { newsConfig, articleConfig } = useContentConfig()
     const [open, setOpen] = useState(false)
     const [techExpanded, setTechExpanded] = useState(true);
-
     const toggleSidebar = () => setOpen(!open)
     const toggleTech = () => setTechExpanded(!techExpanded);
 
@@ -65,6 +64,26 @@ export const Nav = () => {
                 </button>
                 <ul className="ml-4 mt-2 space-y-2">
                 {techExpanded && newsConfig.map(piece => (
+                    <li key={piece.key}>
+                      <Link to={`/news/${piece.key}`} className="flex items-center text-gray-400 hover:text-white">
+                        {piece.title}
+                      </Link>
+                    </li>
+                  ))}
+                  </ul>
+              </li>
+            </ul>
+            <ul className="space-y-2">
+              <li>
+                <button 
+                  onClick={toggleTech}
+                  className="flex items-center w-full text-left text-gray-300 hover:text-white"
+                >
+                  {techExpanded ? <ChevronDown size={16} className="mr-1" /> : <ChevronRight size={16} className="mr-1" />}
+                  Articles
+                </button>
+                <ul className="ml-4 mt-2 space-y-2">
+                {techExpanded && articleConfig.map(piece => (
                     <li key={piece.key}>
                       <Link to={`/news/${piece.key}`} className="flex items-center text-gray-400 hover:text-white">
                         {piece.title}

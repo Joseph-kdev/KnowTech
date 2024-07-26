@@ -4,14 +4,8 @@ import axios from "axios"
 
 const baseURL = "http://localhost:3001/"
 
-export const getArticles = async() => {
-    const articles = await axios.get(baseURL)
-    return articles.data
-}
-
-export const getNews = async(userId) => {
-        const news = await axios.get(`${baseURL}api/news`, { params: { userId } })
-        console.log(news.data);
+export const getFeeds = async(type, userId) => {
+        const news = await axios.get(`${baseURL}api/${type}`, { params: { userId } })
         return news.data
 }
 

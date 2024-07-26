@@ -4,7 +4,7 @@ const { addNewUrl } = require('../services/feedService');
 
 
 router.post('/', async(req, res) => {
-    const { user, rssUrl, rssUrlKey } = req.body;
+    const { user, rssUrl, rssUrlKey, contentType } = req.body;
 
     if (!user || !rssUrl || !rssUrlKey) {
         return res.status(400).send('Missing required fields');
@@ -16,7 +16,7 @@ router.post('/', async(req, res) => {
     }
 
     try {
-        await addNewUrl('news', newUrl, user);
+        await addNewUrl('news', newUrl, user, contentType);
         res.send('URL added successfully');
     } catch (error) {
         console.error('Error adding URL:', error.message, error.stack);
