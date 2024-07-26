@@ -119,13 +119,13 @@ const Newslist = ({ pieces, newsTitle }) => {
     )
 }
 export const Newsfeed = () => {
-    const newsConfig = useNewsConfig()
+    const {newsConfig} = useNewsConfig()
     const {user} = useUserAuth()
     const [open, setOpen] = useState(false)
 
     const {data: news, isLoading, isError } = useQuery({
         queryKey: ["news"],
-        queryFn: () => getNews()
+        queryFn: () => getNews(user.uid)
     })
 
     if(isLoading) {
@@ -143,7 +143,7 @@ export const Newsfeed = () => {
         setOpen(true)
     }
 
-    
+
 const links = [
     {
         name: "LifeHacker",
@@ -154,8 +154,8 @@ const links = [
         link: "http://feeds.arstechnica.com/arstechnica/index"
     },
     {
-        name: "lifeHacker",
-        link: "https://lifehacker.com/feed/rss"
+        name: "Mashable",
+        link: "https://mashable.com/feeds/rss/all"
     },
     {
         name: "lifeHacker",

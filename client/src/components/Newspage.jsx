@@ -25,7 +25,7 @@ const PageItem = ({ title, content, author, pubDate, link }) => {
 }
 
 export const Newspage = ({ title }) => {
-    const newsConfig = useNewsConfig()
+    const {newsConfig} = useNewsConfig()
     const newsPiece = newsConfig.find(piece => piece.title === title)
 
     const {data: news, isLoading, isError } = useQuery({

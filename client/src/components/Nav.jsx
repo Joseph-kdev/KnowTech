@@ -5,7 +5,7 @@ import { useNewsConfig } from '../config/NewsContext';
 
 
 export const Nav = () => {
-    const newsConfig = useNewsConfig()
+    const {newsConfig} = useNewsConfig()
     const [open, setOpen] = useState(false)
     const [techExpanded, setTechExpanded] = useState(true);
 

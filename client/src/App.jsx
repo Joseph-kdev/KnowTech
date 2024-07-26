@@ -6,7 +6,7 @@ import { useNewsConfig } from './config/NewsContext'
 import { Newspage } from './components/Newspage'
 
 export default function App() {
-  const newsConfig = useNewsConfig()
+  const {newsConfig} = useNewsConfig()
 
   return (
     <>
