@@ -85,7 +85,7 @@ export const Nav = () => {
                 <ul className="ml-4 mt-2 space-y-2">
                 {techExpanded && articleConfig.map(piece => (
                     <li key={piece.key}>
-                      <Link to={`/news/${piece.key}`} className="flex items-center text-gray-400 hover:text-white">
+                      <Link to={`/articles/${piece.key}`} className="flex items-center text-gray-400 hover:text-white">
                         {piece.title}
                       </Link>
                     </li>

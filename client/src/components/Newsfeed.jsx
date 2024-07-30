@@ -8,6 +8,7 @@ import { useContentConfig } from '../config/ContentContext'
 import { useUserAuth } from '../config/UserAuthContext'
 import { LinkAdd } from './LinkAdd'
 import Modal from "react-modal"
+import { formatPublicationDate } from './Feedlist'
 
 const NewsPiece = ({ title, link, content, author, pubDate }) => {
     const { user } = useUserAuth()
@@ -20,28 +21,6 @@ const NewsPiece = ({ title, link, content, author, pubDate }) => {
         setInputValue('');
         setMessages([]);
     }
-    const formatPublicationDate = (dateString) => {
-        let date;
-        
-        // Try parsing as ISO date
-        date = parseISO(dateString);
-        
-        // If parsing as ISO fails, try parsing as RFC 2822
-        if (isNaN(date.getTime())) {
-          date = dateParse(dateString, 'EEE, dd MMM yyyy HH:mm:ss xxxx', new Date());
-        }
-        
-        // If both parsing attempts fail, return the original string
-        if (isNaN(date.getTime())) {
-          console.warn(`Unable to parse date: ${dateString}`);
-          return dateString;
-        }
-        
-        // Format the date
-        return format(date, 'MMMM d, yyyy h:mm a');
-      };
-
-
     title = decodeHTML(title)
     content = decodeHTML(content)
     const parsedContent = parse(content)
