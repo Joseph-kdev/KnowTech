@@ -2,14 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+
+body {
+    background-color: #0C1948;
+}
+
 .ReactModal__Body--open {
     overflow: hidden;
 }
 
 .summary-modal {
-    background-color: cornsilk;
+    background-color: #D0B89D;
     min-width: 350px;
-    height: 50%;
+    height: 80%;
     padding: 1rem;
     overflow: auto;
     position: absolute;
@@ -56,7 +61,7 @@
 }
 
 .link-modal {
-    background-color: aqua;
+    background-color: #091235;
     height: 40vh;
     width: 300px;
     position: absolute;

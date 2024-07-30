@@ -10,23 +10,49 @@ import { useQuery } from "@tanstack/react-query";
 import { getFeeds } from "../services/articles";
 import { useUserAuth } from "../config/UserAuthContext";
 import { LinkAdd } from "./LinkAdd"
+import { parseISO, parse as dateParse, format } from 'date-fns';
 
 const Feed = ({ title, content, link, pubDate, summarize }) => {
   title = decodeHTML(title);
   content = decodeHTML(content);
   const parsedContent = parse(content);
+  const formatPublicationDate = (dateString) => {
+    let date;
+    
+    // Try parsing as ISO date
+    date = parseISO(dateString);
+    
+    // If parsing as ISO fails, try parsing as RFC 2822
+    if (isNaN(date.getTime())) {
+      date = dateParse(dateString, 'EEE, dd MMM yyyy HH:mm:ss xxxx', new Date());
+    }
+    
+    // If both parsing attempts fail, return the original string
+    if (isNaN(date.getTime())) {
+      console.warn(`Unable to parse date: ${dateString}`);
+      return dateString;
+    }
+    
+    // Format the date
+    return format(date, 'MMMM d, yyyy h:mm a');
+  };
+
+  const formattedDate = formatPublicationDate(pubDate)
 
   return (
-    <div className="flex flex-col my-2">
+    <div className="flex flex-col my-2 bg-background px-1 py-2 mx-1">
       <a href={link}>
-        <h3 className="text-base font-semibold text-gray-800">{title}</h3>
+        <h3 className="text-text text-lg hover:text-secondary mb-2">{title}</h3>
       </a>
-      <p className="text-sm text-gray-500 leading-relaxed">{parsedContent}</p>
-      <p className="text-xs my-4 text-orange-400">Posted: {pubDate}</p>
+      <p className="text-xs text-gray-500 leading-relaxed">
+        {parsedContent}
+      </p>
+      <p className="text-xs my-4 text-text">Posted: {formattedDate}</p>
       <div
-        className="flex cursor-pointer items-center"
+        className="flex justify-between text-accent "
         onClick={() => summarize(link)}
       >
+        <div className="flex items-center cursor-pointer hover:text-gray-600">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -41,6 +67,12 @@ const Feed = ({ title, content, link, pubDate, summarize }) => {
           <path d="M5.26 17.242a.75.75 0 1 0-.897-1.203 5.243 5.243 0 0 0-2.05 5.022.75.75 0 0 0 .625.627 5.243 5.243 0 0 0 5.022-2.051.75.75 0 1 0-1.202-.897 3.744 3.744 0 0 1-3.008 1.51c0-1.23.592-2.323 1.51-3.008Z" />
         </svg>
         <p className="ml-2 text-sm">Summary</p>
+        </div>
+        <a href={link}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 hover:text-gray-500">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                        </a>
       </div>
     </div>
   );
@@ -88,27 +120,33 @@ export const Feedlist = ({ articles, blogTitle }) => {
   };
 
   return (
-    <div className="flex flex-col mx-1 overflow-hidden">
+    <div className="flex flex-col overflow-hidden bg-primary">
       <Modal
+
+      // Extract the summary from the response data
         isOpen={state.open}
+
+      // Dispatch an action with the summary to update the state
         onRequestClose={closeModal}
         contentLabel="Summary"
         ariaHideApp={false}
         shouldCloseOnOverlayClick={true}
         style={{
+      // Log any errors to the console
           overlay: {
             backgroundColor: "#4e4b4bf4",
           },
         }}
         className="summary-modal"
       >
-        <h1 className="text-center my-3 text-lg">Blogpost Summary</h1>
+        <h1 className="text-center my-3 text-xl text-primary">
+          AI Summary
+        </h1>
         <hr className="mb-2" />
-        <ReactMarkdown className="text-gray-700 text-sm leading-relaxed">
+        <ReactMarkdown className="text-gray-800 text-sm leading-relaxed">
           {state.blogSummary}
         </ReactMarkdown>
-        <hr className="mt-3" />
-        <div className="mt-3">
+        <div className="mt-3 text-primary absolute bottom-4">
           Powered by
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +154,7 @@ export const Feedlist = ({ articles, blogTitle }) => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 inline-block mx-2"
+            className="w-6 h-6 inline-block mx-2 hover:text-gray-800"
           >
             <path
               strokeLinecap="round"
@@ -127,10 +165,11 @@ export const Feedlist = ({ articles, blogTitle }) => {
           Gemini AI
         </div>
       </Modal>
-      <h2 className="text-xl my-2 mx-1 w-screen">{blogTitle}</h2>
-      <hr className="my-1" />
+      <h2 className="font-subheading text-2xl py-4 px-1 text-text bg-background md:pl-5">
+        {blogTitle}
+      </h2>
       <div className="md:grid md:grid-cols-2 lg:grid-cols-3">
-        {articles.slice(0, 3).map((article, index) => (
+        {articles.slice(0, 6).map((article, index) => (
           <div key={index}>
             <Feed
               title={article.title}
@@ -142,7 +181,7 @@ export const Feedlist = ({ articles, blogTitle }) => {
           </div>
         ))}
         {state.showAll &&
-          articles.slice(4).map((article, index) => (
+          articles.slice(6).map((article, index) => (
             <div key={`remaining-${index}`}>
               <Feed
                 title={article.title}
@@ -154,9 +193,20 @@ export const Feedlist = ({ articles, blogTitle }) => {
             </div>
           ))}
       </div>
-      <button onClick={toggleShowAll} className="text-sky-700 ">
-        {state.showAll ? "Show Less" : "Show More"}
-      </button>
+      <div className='w-full flex justify-center'>
+                <button onClick={toggleShowAll} className='bg-gray-700 hover:bg-gray-500 text-white font-bold my-3 h-8 w-full flex justify-center items-center md:w-[100px] rounded'>
+                    {state.showAll ? 
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-center">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
+                    </svg>
+                    : 
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+                    </svg>
+                    }
+                </button>
+            </div>
     </div>
   );
 };
@@ -171,7 +221,8 @@ export const ArticleFeed = () => {
     isError,
   } = useQuery({
     queryKey: ["articles"],
-    queryFn: () => getFeeds("articles"),
+    queryFn: () => getFeeds("articles", user.uid),
+    initialData: articleConfig,
   });
 
   if (isLoading) {
@@ -186,35 +237,32 @@ export const ArticleFeed = () => {
     if(!user) {
         alert("Please log in to add RSS feeds")
     }
+    
     setOpen(true)
 }
 const links = [
   {
-      name: "LifeHacker",
-      link: "https://lifehacker.com/feed/rss"
+      name: "OpenReplay",
+      link: "https://blog.openreplay.com/rss.xml"
   },
   {
-      name: "Ars Technica",
-      link: "http://feeds.arstechnica.com/arstechnica/index"
+      name: "Dev.to",
+      link: "https://dev.to/feed"
   },
   {
-      name: "Mashable",
-      link: "https://mashable.com/feeds/rss/all"
-  },
-  {
-      name: "lifeHacker",
-      link: "https://lifehacker.com/feed/rss"
+      name: "SitePoint",
+      link: "https://www.sitepoint.com/sitepoint.rss"
   },
   
 ]
 
   return (
     <>
-              <div className='relative'>
+          <div className='relative bg-primary'>
             <div>
                 <LinkAdd open={open} setOpen={setOpen} links={links} contentType="articles"/>
             </div>
-            <h1 className='text-center font-roboto text-3xl py-4'>
+            <h1 className='text-center text-4xl py-4 bg-secondary font-heading'>
                Articles
             </h1>
             <div className='absolute top-5 right-3' onClick={addRSSFeed}>

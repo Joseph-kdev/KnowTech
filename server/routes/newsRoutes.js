@@ -4,7 +4,7 @@ const router = require('express').Router();
 router.get('/', async (req, res) => {
     const userId = req.query.userId
     try {
-        const newsData = await getFeedsData('news', userId);
+        const newsData = await getFeedsData("news", userId);
         res.json(newsData);
     } catch (error) {
         console.error('Error fetching news feeds:', error);
@@ -13,4 +13,5 @@ router.get('/', async (req, res) => {
 
 });
 
-module.exports = router;
+module.exports = router
+

@@ -16,7 +16,7 @@ router.post('/', async(req, res) => {
     }
 
     try {
-        await addNewUrl('news', newUrl, user, contentType);
+        await addNewUrl(newUrl, user, contentType);
         res.send('URL added successfully');
     } catch (error) {
         console.error('Error adding URL:', error.message, error.stack);

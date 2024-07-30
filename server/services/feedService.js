@@ -25,15 +25,16 @@ const feedURLs = [
         key: "logRocket",
         value:"https://blog.logrocket.com/feed",
     },
-    {
-        key: "codingHorror",
-        value:"https://blog.codinghorror.com/rss"
-    },
+    // {
+    //     key: "SitePoint",
+    //     value: "https://www.sitepoint.com/sitepoint.rss"
+    // },
 ]
 
 
-const addNewUrl = async(type, newUrl, userId, contentType) => {
+const addNewUrl = async( newUrl, userId, contentType) => {
        const userFeedsRef = db.collection(`users/${userId}/${contentType}`);
+       console.log(`Added to ${contentType} feed`);
        try {
            await userFeedsRef.add(({
             key: newUrl.key,

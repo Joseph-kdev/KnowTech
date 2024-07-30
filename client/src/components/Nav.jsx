@@ -14,12 +14,12 @@ export const Nav = () => {
 
   return (
     <div className=''>
-      <div className='relative w-full bg-slate-700 h-[80px]'>
-        <div className='h-full pt-1'>
+      <div className='relative w-full bg-background h-[80px]'>
+        {/* <div className='h-full pt-1'>
           <img src="know.png" alt="logo" className='h-[90%] mx-1 mt-1'/>
-        </div>        
+        </div>         */}
         <button
-          className="fixed top-4 right-4 z-50 p-2 bg-blue-500 text-white rounded-full shadow-lg"
+          className="fixed top-4 right-4 z-50 p-2 bg-accent text-background rounded-full shadow-lg hover:text-text"
           onClick={toggleSidebar}
         >
           <Menu size={24} />

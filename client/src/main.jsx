@@ -18,11 +18,11 @@ const newsConfig = [
 const articleConfig = [
   { key: 'bytebytego', title: 'Bytebytego' },
   { key: 'logRocket', title: 'Logrocket' },
-  { key: 'codingHorror', title: 'Coding Horror' },
+  // { key: "SitePoint", title: "SitePoint"}
 ]
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <>
     <UserAuthContextProvider>
       <ContentConfigProvider newsConfig={newsConfig} articleConfig={articleConfig}>
         <QueryClientProvider client={queryClient}>
@@ -32,5 +32,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </QueryClientProvider>
       </ContentConfigProvider>
     </UserAuthContextProvider>
-  </React.StrictMode>,
+  </>,
 )
