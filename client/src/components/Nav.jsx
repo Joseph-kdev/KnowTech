@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
-import { X, Menu, ChevronDown, ChevronRight} from 'lucide-react';
+import { X, Menu, ChevronDown, ChevronRight, Bookmark, Home, CircleUserRound} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useContentConfig } from '../config/ContentContext';
+import { useUserAuth } from '../config/UserAuthContext';
+import { signOut } from 'firebase/auth';
 
 
 export const Nav = () => {
@@ -10,6 +12,7 @@ export const Nav = () => {
     const [techExpanded, setTechExpanded] = useState(true);
     const toggleSidebar = () => setOpen(!open)
     const toggleTech = () => setTechExpanded(!techExpanded);
+    const { user } = useUserAuth()
 
 
   return (
@@ -47,8 +50,27 @@ export const Nav = () => {
           </button>
 
           <div className='mt-8'>
-            <Link to="/" className="hover:text-gray-400">
-               Home
+            <Link to="/" className="hover:text-gray-400 flex items-center">
+              <Home size={20} className="mr-1" />
+               <p className='ml-2'>
+                  Home
+                </p>
+            </Link>
+          </div>
+          <div className='mt-3'>
+            <Link to="/bookmarks" className="hover:text-gray-400 flex items-center">
+               <Bookmark size={20} className="mr-1" /> 
+               <p className='ml-2'>
+               Bookmarks
+               </p>
+            </Link>
+          </div>
+          <div className='mt-3' onClick={() => user ? signOut() : null}>
+            <Link to="/login" className="hover:text-gray-400 flex items-center">
+               <CircleUserRound size={20} className="mr-1" /> 
+               <p className='ml-2'>
+               {user ? "Logout" : "Login"}
+               </p>
             </Link>
           </div>
           <h2 className="text-xs font-semibold text-gray-400 mb-4 mt-8">FEEDS</h2>
@@ -62,7 +84,7 @@ export const Nav = () => {
                   {techExpanded ? <ChevronDown size={16} className="mr-1" /> : <ChevronRight size={16} className="mr-1" />}
                   News
                 </button>
-                <ul className="ml-4 mt-2 space-y-2">
+                <ul className="ml-4 mt-2 space-y-2 mb-2">
                 {techExpanded && newsConfig.map(piece => (
                     <li key={piece.key}>
                       <Link to={`/news/${piece.key}`} className="flex items-center text-gray-400 hover:text-white">

@@ -77,12 +77,10 @@ body {
     -o-border-radius: 15px;
 }
 
-.page-content {
-}
-
 @media screen and (min-width: 768px) {
     .page-content img {
         max-width: 300px;
+        margin-right: 8px;
     }
     .page-content figure {
         min-width: 300px;
