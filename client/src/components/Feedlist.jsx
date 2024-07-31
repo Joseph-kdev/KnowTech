@@ -106,7 +106,7 @@ export const Feedlist = ({ articles, blogTitle }) => {
     };
     try {
       const response = await axios.post(
-        "http://localhost:3001/summaries",
+        'https://know-production.up.railway.app/summaries',
         selectedUrl
       );
       const summary = await response.data;
@@ -244,10 +244,6 @@ const links = [
   {
       name: "OpenReplay",
       link: "https://blog.openreplay.com/rss.xml"
-  },
-  {
-      name: "Dev.to",
-      link: "https://dev.to/feed"
   },
   {
       name: "SitePoint",

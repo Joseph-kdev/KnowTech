@@ -1,8 +1,8 @@
 import axios from "axios"
 
-// const baseURL = "https://blogs-rs-sfeed-back.vercel.app/"
+// const baseURL = "http://localhost:3001/"
 
-const baseURL = "http://localhost:3001/"
+const baseURL = "https://know-production.up.railway.app/"
 
 export const getFeeds = async(type, userId) => {
         const feeds = await axios.get(`${baseURL}api/${type}`, { params: { userId } })

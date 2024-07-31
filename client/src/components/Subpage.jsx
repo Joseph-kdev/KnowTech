@@ -17,7 +17,6 @@ const PageItem = ({ title, content, author, pubDate, link, blogTitle }) => {
   const parsedContent = parse(content)
   const date = formatPublicationDate(pubDate)
 
-  
   const { user } = useUserAuth();
   const [launch, setLaunch] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
