@@ -145,8 +145,8 @@ export const Feedlist = ({ articles, blogTitle }) => {
           AI Summary
         </h1>
         <hr className="mb-2" />
-        {state.blogSummary ? (
-          <div className="h-screen">
+        {state.blogSummary == "" ? (
+          <div className="h-[50vh]">
             <DotLoader />
           </div>
         ) : (
