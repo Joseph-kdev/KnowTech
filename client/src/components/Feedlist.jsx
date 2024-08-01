@@ -106,7 +106,7 @@ export const Feedlist = ({ articles, blogTitle }) => {
     };
     try {
       const response = await axios.post(
-        'https://know-production.up.railway.app/summaries',
+        'https://know-production.up.railway.app/api/summaries',
         selectedUrl
       );
       const summary = await response.data;
