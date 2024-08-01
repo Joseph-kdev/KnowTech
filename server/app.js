@@ -13,7 +13,7 @@ app.use(express.json())
 app.use('/api/news', newsRoutes)
 app.use('/api/articles', articleRoutes)
 app.use('/api/chat', newsChatRoutes)
-app.use('/summaries', summaryRoutes)
+app.use('/api/summaries', summaryRoutes)
 app.use('/api/updateFeeds', urlRoutes)
 
 module.exports = app
