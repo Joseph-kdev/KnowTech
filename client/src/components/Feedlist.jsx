@@ -11,6 +11,7 @@ import { getFeeds } from "../services/articles";
 import { useUserAuth } from "../config/UserAuthContext";
 import { LinkAdd } from "./LinkAdd"
 import { parseISO, parse as dateParse, format } from 'date-fns';
+import { DotLoader, FadeLoader } from "react-spinners";
 
 export const formatPublicationDate = (dateString) => {
   let date;
@@ -104,6 +105,7 @@ export const Feedlist = ({ articles, blogTitle }) => {
     const selectedUrl = {
       actualUrl: url,
     };
+    //move this to services
     try {
       const response = await axios.post(
         'https://know-production.up.railway.app/api/summaries',
@@ -143,9 +145,15 @@ export const Feedlist = ({ articles, blogTitle }) => {
           AI Summary
         </h1>
         <hr className="mb-2" />
+        {state.blogSummary ? (
+          <div className="h-screen">
+            <DotLoader />
+          </div>
+        ) : (
         <ReactMarkdown className="text-gray-800 text-sm leading-relaxed">
           {state.blogSummary}
         </ReactMarkdown>
+        )}
         <div className="mt-3 text-primary absolute bottom-4">
           Powered by
           <svg
@@ -226,11 +234,15 @@ export const ArticleFeed = () => {
   });
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <div className="h-screen">
+      <FadeLoader />
+    </div>;
   }
 
   if (isError) {
-    return <div>Errored out</div>;
+    return <div className="h-screen">
+      <img src="error.svg" alt="" className="h-[60vh]"/>
+    </div>;
   }
 
   const addRSSFeed = () => {
@@ -241,10 +253,6 @@ export const ArticleFeed = () => {
     setOpen(true)
 }
 const links = [
-  {
-      name: "OpenReplay",
-      link: "https://blog.openreplay.com/rss.xml"
-  },
   {
       name: "SitePoint",
       link: "https://www.sitepoint.com/sitepoint.rss"

@@ -5,6 +5,7 @@ import { addRSSFeed, getFeeds } from "../services/articles"
 import { collection, deleteDoc, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase-config";
 import { useContentConfig } from "../config/ContentContext";
+import { Flip, toast } from "react-toastify";
 
 export const LinkAdd = ({ open, setOpen, links, contentType }) => {
   const { user } = useUserAuth()
@@ -37,7 +38,17 @@ export const LinkAdd = ({ open, setOpen, links, contentType }) => {
           contentType: contentType
       }
       await addRSSFeed(feedDetails)
-      console.log(`Added ${contentType} RSS Feed`);
+      // toast.success(`Added ${contentType} RSS Feed`, {
+      //   position: "top-center",
+      //   autoClose: 4000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "dark",
+      //   transition: Flip,
+      // })
       
       // Update the appropriate config based on contentType
       if (contentType === 'news') {
@@ -59,6 +70,7 @@ export const LinkAdd = ({ open, setOpen, links, contentType }) => {
       
       setAddedLinks(prev => ({ ...prev, [name]: true }));
       closeModal()
+      window.location.reload()
     } catch (error) {
       console.log(`Error adding ${contentType} link:`, error);
     }
@@ -74,7 +86,17 @@ export const LinkAdd = ({ open, setOpen, links, contentType }) => {
       const docToDelete = querySnapshot.docs.find(doc => doc.data().key === name);
       if(docToDelete) {
         await deleteDoc(docToDelete.ref)
-        console.log(`Removed ${contentType} RSS Feed`);
+        // toast.warning(`Added ${contentType} RSS Feed`, {
+        //   position: "top-center",
+        //   autoClose: 4000,
+        //   hideProgressBar: false,
+        //   closeOnClick: true,
+        //   pauseOnHover: true,
+        //   draggable: true,
+        //   progress: undefined,
+        //   theme: "dark",
+        //   transition: Flip,
+        // })
       }
 
       if(contentType === 'news') {
@@ -86,7 +108,6 @@ export const LinkAdd = ({ open, setOpen, links, contentType }) => {
       }
       
       setAddedLinks(prev => ({ ...prev, [name]: false }));
-
       closeModal()
     } catch (error) {
       console.error(`Error removing ${contentType} link:`, error);

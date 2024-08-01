@@ -47,21 +47,21 @@ export const Login = () => {
   return (
     <>
 <div className="flex h-screen">
-  <div className="hidden lg:flex items-center justify-center flex-1 bg-white text-black">
+  <div className="hidden lg:flex items-center justify-center flex-1 text-black">
     <div className="max-w-md text-center">
       <svg xmlns="http://www.w3.org/2000/svg" width="524.67004" height="531.39694" className="w-full" alt="https://undraw.co/illustrations" title="https://undraw.co/illustrations" viewBox="0 0 524.67004 531.39694" xmlns:xlink="http://www.w3.org/1999/xlink">
         <polygon points="117.67523 88.74385 113.67523 109.74385 133.61763 115.36589 131.1398 92.94604 117.67523 88.74385" fill="#a0616a" />
-        <path d="M0,523.44458c0,.66003,.53003,1.19,1.19006,1.19H523.48004c.65997,0,1.19-.52997,1.19-1.19,0-.65997-.53003-1.19-1.19-1.19H1.19006c-.66003,0-1.19006,.53003-1.19006,1.19Z" fill="#3f3d56" />
+        <path d="M0,523.44458c0,.66003,.53003,1.19,1.19006,1.19H523.48004c.65997,0,1.19-.52997,1.19-1.19,0-.65997-.53003-1.19-1.19-1.19H1.19006c-.66003,0-1.19006,.53003-1.19006,1.19Z" fill="#D0B89D" />
         <g>
           <path d="M356.03772,238.30865H150.36885c-23.32296,0-42.22995,18.90698-42.22995,42.22995v199.43289c0,23.32291,18.90695,42.22986,42.22986,42.22986h205.66896c23.32297,0,42.22995-18.90698,42.22995-42.22995v-199.43283c0-23.32297-18.90698-42.22995-42.22995-42.22995v.00003Z" fill="#fff" />
           <path d="M356.03781,523.20093H150.36888c-23.83691,0-43.22998-19.39258-43.22998-43.22949v-199.43262c0-23.83691,19.39307-43.22998,43.22998-43.22998h205.66896c23.83691,0,43.22998,19.39307,43.22998,43.22998v199.43262c0,23.83691-19.39307,43.22949-43.22998,43.22949h-.00003ZM150.36888,239.30882c-22.73438,0-41.22998,18.49562-41.22998,41.23v199.43262c0,22.73438,18.49561,41.22949,41.22998,41.22949h205.66896c22.73438,0,41.22998-18.49512,41.22998-41.22949v-199.43262c0-22.73438-18.49561-41.22998-41.22998-41.22998H150.36888v-.00002Z" fill="#3f3d56" />
           <path d="M370.93558,324.77005h-82.66788c-3.50635,0-6.35907-2.85272-6.35907-6.35907s2.85272-6.35907,6.35907-6.35907h82.66785c3.50635,0,6.35907,2.85272,6.35907,6.35907s-2.85272,6.35907-6.35907,6.35907h.00003Z" fill="#000000" />
           <path d="M293.3822,374.77737h-80.3571c-2.02586,0-3.67427-1.64841-3.67427-3.67429s1.64841-3.67352,3.67427-3.67352h80.3571c2.02588,0,3.67352,1.64764,3.67352,3.67352s-1.64764,3.67426-3.67352,3.67426v.00003Z" fill="#000000" />
           <rect x="133.61763" y="251.96666" width="46.49806" height="5.96129" rx=".31021" ry=".31021" fill="#000000" />
-          <circle cx="334.3363" cy="253.15892" r="4.76904" fill="#3f3d56" />
-          <circle cx="347.45114" cy="253.15892" r="4.76904" fill="#3f3d56" />
-          <circle cx="360.56598" cy="253.15892" r="4.76904" fill="#3f3d56" />
-          <path d="M149.86826,394.44458c0,.66003,.53003,1.19,1.19006,1.19h204.28998c.65997,0,1.19-.52997,1.19-1.19,0-.65997-.53003-1.19-1.19-1.19H151.05832c-.66003,0-1.19006,.53003-1.19006,1.19Z" fill="#3f3d56" />
+          <circle cx="334.3363" cy="253.15892" r="4.76904" fill="#D0B89D" />
+          <circle cx="347.45114" cy="253.15892" r="4.76904" fill="#D0B89D" />
+          <circle cx="360.56598" cy="253.15892" r="4.76904" fill="#D0B89D" />
+          <path d="M149.86826,394.44458c0,.66003,.53003,1.19,1.19006,1.19h204.28998c.65997,0,1.19-.52997,1.19-1.19,0-.65997-.53003-1.19-1.19-1.19H151.05832c-.66003,0-1.19006,.53003-1.19006,1.19Z" fill="#D0B89D" />
         </g>
         <g>
           <path id="uuid-d0b76542-8f08-4363-846d-0cc3b89caf22-176" d="M212.17296,100.91704c4.34915-3.59367,9.72871-4.26258,12.0153-1.49438,2.28658,2.7682,.6142,7.92447-3.73698,11.51883-1.71841,1.45964-3.76141,2.48653-5.95805,2.99474l-18.6198,14.99379-6.8499-8.8877,19.08307-13.83763c.91373-2.06202,2.30807-3.87516,4.06638-5.28765h-.00002Z" fill="#a0616a" />
@@ -105,9 +105,9 @@ export const Login = () => {
         <g>
           <path d="M426.8764,128.56088H224.02585c-5.7366,0-10.4035-4.66732-10.4035-10.4035V10.4035c0-5.73617,4.6669-10.4035,10.4035-10.4035h202.85056c5.7366,0,10.4035,4.66732,10.4035,10.4035V118.15739c0,5.73617-4.6669,10.4035-10.4035,10.4035Z" fill="#fff" />
           <path d="M426.8764,128.56088H224.02585c-5.7366,0-10.4035-4.66732-10.4035-10.4035V10.4035c0-5.73617,4.6669-10.4035,10.4035-10.4035h202.85056c5.7366,0,10.4035,4.66732,10.4035,10.4035V118.15739c0,5.73617-4.6669,10.4035-10.4035,10.4035ZM224.02585,1.73731c-4.77844,0-8.66618,3.88774-8.66618,8.66619V118.15739c0,4.77845,3.88774,8.66619,8.66618,8.66619h202.85056c4.77844,0,8.6662-3.88774,8.6662-8.66619V10.4035c0-4.77845-3.88773-8.66619-8.6662-8.66619H224.02585Z" fill="#3f3d56" />
-          <circle cx="411.22028" cy="10.42386" r="2.60596" fill="#3f3d56" />
-          <circle cx="418.16949" cy="10.42386" r="2.60596" fill="#3f3d56" />
-          <circle cx="425.11874" cy="10.42386" r="2.60596" fill="#3f3d56" />
+          <circle cx="411.22028" cy="10.42386" r="2.60596" fill="#D0B89D" />
+          <circle cx="418.16949" cy="10.42386" r="2.60596" fill="#D0B89D" />
+          <circle cx="425.11874" cy="10.42386" r="2.60596" fill="#D0B89D" />
           <path d="M228.38948,52.5536c-.71851,0-1.30298,.58448-1.30298,1.30298,0,.35035,.1353,.67439,.38087,.91361,.2477,.25364,.57217,.38937,.9221,.38937h194.99193c.71851,0,1.30298-.58448,1.30298-1.30298,0-.35035-.13531-.67439-.38089-.91361-.24771-.25364-.57217-.38937-.92209-.38937H228.38948Z" fill="#e6e6e6" />
           <path d="M399.05911,52.11928v3.47462H228.38948c-.47775,0-.91208-.19113-1.22478-.51253-.32146-.3127-.51253-.74703-.51253-1.22478,0-.95555,.78181-1.73731,1.7373-1.73731h170.66963Z" fill="#000000" />
           <path d="M421.20978,45.60437h-17.37308c-1.91589,0-3.47461-1.55832-3.47461-3.47462s1.55875-3.47462,3.47461-3.47462h17.37308c1.91589,0,3.47461,1.55832,3.47461,3.47462s-1.55875,3.47462-3.47461,3.47462Z" fill="#e6e6e6" />
@@ -119,14 +119,17 @@ export const Login = () => {
       </svg>
     </div>
   </div>
-  <div className="w-full bg-gray-100 lg:w-1/2 flex items-center justify-center">
-    <div className="max-w-md w-full p-6">
+  <div className="w-full bg-secondary lg:w-1/2 flex items-center justify-center">
+    <div className="max-w-md w-full p-6 bg-primary">
+      <div className="flex justify-center mb-6">
+        <img src="know.png" alt="logo" className='h-[80px] mx-1'/>
+      </div>
     {state.hasAccount ? (
           <h1 className="text-3xl font-semibold mb-6 text-black text-center">Login</h1>
         ) : (
-          <h1 className="text-3xl font-semibold mb-6 text-black text-center">Sign Up</h1>
+          <h1 className="text-3xl font-semibold mb-6 text-secondary text-center">Sign Up</h1>
     )}
-      <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community with all time access and free </h1>
+      <h1 className="text-sm font-semibold mb-6 text-text text-center">Join KnowTech to find the latest news and articles from the techworld. </h1>
       <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
         <div className="w-full mb-2 lg:mb-0">
           <button type="button" onClick={signInWithGoogle} className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300">
@@ -139,13 +142,13 @@ export const Login = () => {
             </button>
         </div>
       </div>
-      <div className="mt-4 text-sm text-gray-600 text-center">
+      <div className="mt-4 text-sm text-text text-center">
         <p>or with email</p>
       </div>
       <form action="#" method="POST" className="space-y-4">
       
         <div>
-          <label for="email" className="block text-sm font-medium text-gray-700">Email</label>
+          <label htmlFor="email" className="block text-sm font-medium text-text">Email</label>
           <input 
               type="text" 
               id="email" 
@@ -156,7 +159,7 @@ export const Login = () => {
               />
         </div>
         <div>
-          <label for="password" className="block text-sm font-medium text-gray-700">Password</label>
+          <label htmlFor="password" className="block text-sm font-medium text-text">Password</label>
           <input 
             type="password" 
             id="password" 
@@ -167,15 +170,15 @@ export const Login = () => {
             />
         </div>
         <div>
-          <button type="submit" onClick={handleLogin} className="w-full bg-black text-white p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">
+          <button type="submit" onClick={handleLogin} className="w-full bg-accent text-gray p-2 rounded-md hover:bg-gray-800 focus:outline-none focus:bg-black focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">
             {state.hasAccount ? "Login" : "Sign Up"}
           </button>
         </div>
       </form>
       <div className="mt-4 text-sm text-gray-600 text-center">
       <h3>
-            {state.hasAccount ? "Don't have an account?" : "Already have an account?"}
-                <button onClick={() => dispatch({type: "has-account"})}>
+            {state.hasAccount ? "Don't have an account? " : "Already have an account? "}
+                <button onClick={() => dispatch({type: "has-account"})} className="text-accent hover:underline">
                     {state.hasAccount ? "Sign Up" : "Login"}
                 </button>
             

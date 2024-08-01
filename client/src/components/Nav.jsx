@@ -18,9 +18,9 @@ export const Nav = () => {
   return (
     <div className=''>
       <div className='relative w-full bg-background h-[80px]'>
-        {/* <div className='h-full pt-1'>
+        <div className='h-full pt-1 ml-2'>
           <img src="know.png" alt="logo" className='h-[90%] mx-1 mt-1'/>
-        </div>         */}
+        </div>        
         <button
           className="fixed top-4 right-4 z-50 p-2 bg-accent text-background rounded-full shadow-lg hover:text-text"
           onClick={toggleSidebar}

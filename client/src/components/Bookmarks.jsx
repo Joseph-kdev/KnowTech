@@ -5,6 +5,8 @@ import { useUserAuth } from "../config/UserAuthContext";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { Nav } from "./Nav";
 import { useNavigate } from "react-router-dom";
+import { Flip, toast } from "react-toastify";
+import { DotLoader } from "react-spinners";
 
 const Piece = ({
   title,
@@ -99,11 +101,15 @@ export const Bookmarks = () => {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="h-screen">
+      <DotLoader />
+    </div>;
   }
 
   if (isError) {
-    return <div>Errored out</div>;
+    return <div className="h-screen">
+      <img src="error.svg" alt="" className="h-[60vh]"/>
+    </div>;
   }
 
   const handleRemove = (bookmarkId) => {

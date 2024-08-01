@@ -8,6 +8,7 @@ import { useUserAuth } from "../config/UserAuthContext";
 import { LinkAdd } from "./LinkAdd";
 import { formatPublicationDate } from "./Feedlist";
 import { AiChat } from "./AiChat";
+import { FadeLoader } from "react-spinners"
 
 const NewsPiece = ({ title, link, content, author, pubDate }) => {
   const { user } = useUserAuth();
@@ -192,11 +193,15 @@ export const Newsfeed = () => {
   });
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <div className="h-screen">
+            <FadeLoader />
+           </div>;
   }
 
   if (isError) {
-    return <div>Errored Out</div>;
+    return <div className="h-screen">
+    <img src="error.svg" alt="" className="h-[60vh]"/>
+  </div>;
   }
 
   const addRSSFeed = () => {

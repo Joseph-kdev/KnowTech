@@ -10,6 +10,7 @@ import { formatPublicationDate } from './Feedlist'
 import { AiChat } from './AiChat'
 import { db } from '../config/firebase-config'
 import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
+import { DotLoader } from 'react-spinners'
 
 const PageItem = ({ title, content, author, pubDate, link, blogTitle }) => { 
   title = decodeHTML(title)
@@ -48,10 +49,7 @@ const PageItem = ({ title, content, author, pubDate, link, blogTitle }) => {
       console.log("No user logged in");
       return;
     }
-  
-    console.log("Current user:", user.uid);
-    console.log("Is currently bookmarked:", isBookmarked);
-  
+
     try {
       if (isBookmarked) {
         console.log("Attempting to remove bookmark");
@@ -132,14 +130,19 @@ export const Subpage = ({ title, type }) => {
     })
 
     if(isLoading) {
-        return <div>Loading</div>
+        return <div className="h-screen">
+          <DotLoader />
+        </div>
     }
 
     if(isError) {
-        return <div>Errored Out</div>
+        return <div className="h-screen">
+        <img src="error.svg" alt="" className="h-[60vh]"/>
+      </div>
     }
 
     const articles = feed ? feed[feedPiece.key] : []
+    console.log(JSON.stringify(feed));
 
   return (
     <>
@@ -148,7 +151,7 @@ export const Subpage = ({ title, type }) => {
         {title}
       </h3>
       <div>
-        { articles.map(article => (
+        { feed ? ( articles.map(article => (
           <div key={article.title}>
             <PageItem
             blogTitle={title}
@@ -159,7 +162,11 @@ export const Subpage = ({ title, type }) => {
               pubDate={article.pubDate}
             />
           </div>
-        ))}
+        )) ) : 
+        <div className="h-screen">
+          <img src="error.svg" alt="" className="h-[60vh]"/>
+        </div>
+        }
       </div>
     </>
   )
