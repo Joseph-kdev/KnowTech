@@ -86,6 +86,8 @@ export const Feedlist = ({ articles, blogTitle }) => {
     blogSummary: "",
   });
 
+  const baseUrl = import.meta.env.VITE_BACKEND_URL
+
   const toggleShowAll = () => {
     dispatch({
       type: "show-all",
@@ -108,7 +110,7 @@ export const Feedlist = ({ articles, blogTitle }) => {
     //move this to services
     try {
       const response = await axios.post(
-        'https://know-production.up.railway.app/api/summaries',
+        `${baseUrl}api/summaries`,
         selectedUrl
       );
       const summary = await response.data;
