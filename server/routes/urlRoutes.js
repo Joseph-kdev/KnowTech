@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { addNewUrl } = require('../services/feedService');
-
+const { invalidateCache } = require('../middleware/cache');
 
 
 router.post('/', async(req, res) => {
@@ -17,7 +17,9 @@ router.post('/', async(req, res) => {
 
     try {
         await addNewUrl(newUrl, user, contentType);
-        res.send('URL added successfully');
+        invalidateCache(contentType)
+        console.log('URL added successfully');
+        res.status(200).send('URL added successfully');
     } catch (error) {
         console.error('Error adding URL:', error.message, error.stack);
         res.status(500).send(`Error adding URL: ${error.message}`);

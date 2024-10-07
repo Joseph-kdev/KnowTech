@@ -14,6 +14,18 @@ const newsURLs = [
         key: "hackerNews",
         value: "https://thehackernews.com/feeds/posts/default"
     },
+    {
+        key: "LifeHacker",
+        value: "https://lifehacker.com/feed/rss",
+      },
+    //   {
+    //     key: "Ars Technica",
+    //     value: "http://feeds.arstechnica.com/arstechnica/index",
+    //   },
+      {
+        key: "Mashable",
+        value: "https://mashable.com/feeds/rss/all",
+      },
 ]
 
 const feedURLs = [

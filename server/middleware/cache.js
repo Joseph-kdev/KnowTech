@@ -29,7 +29,17 @@ async function setCache(key, data) {
     }
 }
 
+async function invalidateCache(key) {
+    try {
+        await client.del(key);
+        console.log(`Cache invalidated: ${key}`);
+    } catch (error) {
+        console.error("Error invalidating cache:", error);
+    }
+}
+
 module.exports = {
     setCache,
     checkCache,
+    invalidateCache
 }

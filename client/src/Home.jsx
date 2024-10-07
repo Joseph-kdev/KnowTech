@@ -3,6 +3,7 @@ import { ArticleFeed } from './components/Feedlist'
 import { Newsfeed } from './components/Newsfeed'
 import { Nav } from './components/Nav'
 import { ToastContainer } from "react-toastify"
+import { Footer } from './components/Footer'
 
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
         <Nav />
         <Newsfeed />
         <ArticleFeed />
+        <Footer />
     </>
   )
 }
