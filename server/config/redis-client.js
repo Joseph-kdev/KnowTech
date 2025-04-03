@@ -5,7 +5,7 @@ const client = createClient({
     password: `${redis_pwd}`,
     socket: {
         host: `${redis_host}`,
-        port: 10005
+        port: 13816
     }
 })
 

@@ -10,14 +10,14 @@ const { client } = require("./config/redis-client");
     await client.connect();
 })();
 
-console.log("Connecting to the Redis");
+console.log("Connecting to Redis");
 
 client.on("ready", () => {
     console.log("Connected!");
 });
 
 client.on("error", (err) => {
-    console.log("Error in the Connection");
+    console.log("Error in the Connection", err);
 });
 
 const app = express();
