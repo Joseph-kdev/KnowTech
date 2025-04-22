@@ -15,7 +15,7 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path='/' element={ user ? <Home /> : <Login />} />
+        <Route path='/' element={ <Home /> } />
         <Route path='/login' element={<Login />} />
         <Route path='/bookmarks' element={user ? <Bookmarks /> : <Login />} />
         {newsConfig.map(piece => (

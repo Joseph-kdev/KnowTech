@@ -9,6 +9,11 @@ export const getFeeds = async(type, userId) => {
         return feeds.data
 }
 
+export const fetchFeeds = async(type) => {
+        const feeds = await axios.get(`${baseURL}api/${type}`)
+        return feeds.data
+}
+
 export const addRSSFeed = async(urlDetails) => {
     const news = await axios.post(`${baseURL}api/updateFeeds`, urlDetails)
     return news.data

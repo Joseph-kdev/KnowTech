@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useState } from "react";
-import { getFeeds } from "../services/articles";
+import { fetchFeeds, getFeeds } from "../services/articles";
 import { decodeHTML } from "entities";
 import parse from "html-react-parser";
 import { useContentConfig } from "../config/ContentContext";
@@ -8,7 +8,7 @@ import { useUserAuth } from "../config/UserAuthContext";
 import { LinkAdd } from "./LinkAdd";
 import { formatPublicationDate } from "./Feedlist";
 import { AiChat } from "./AiChat";
-import { FadeLoader } from "react-spinners"
+import { FadeLoader } from "react-spinners";
 
 const NewsPiece = ({ title, link, content, author, pubDate }) => {
   const { user } = useUserAuth();
@@ -188,25 +188,31 @@ export const Newsfeed = () => {
     isError,
   } = useQuery({
     queryKey: ["news"],
-    queryFn: () => getFeeds("news", user.uid),
+    queryFn: () => (user ? getFeeds("news", user.uid) : fetchFeeds("news")),
     initialData: newsConfig,
   });
 
   if (isLoading) {
-    return <div className="h-screen">
-            <FadeLoader />
-           </div>;
+    return (
+      <div className="h-screen">
+        <FadeLoader />
+      </div>
+    );
   }
 
   if (isError) {
-    return <div className="h-screen">
-    <img src="error.svg" alt="" className="h-[60vh]"/>
-  </div>;
+    return (
+      <div className="h-screen">
+        <img src="error.svg" alt="" className="h-[60vh] w-screen flex justify-center" />
+        <p className="text-center text-secondary mt-3 font-[poppins]">Oops!! An error occurred try again later!</p>
+      </div>
+    );
   }
 
   const addRSSFeed = () => {
     if (!user) {
       alert("Please log in to add RSS feeds");
+      return
     }
     setOpen(true);
   };

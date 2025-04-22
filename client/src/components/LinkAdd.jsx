@@ -144,7 +144,11 @@ export const LinkAdd = ({ open, setOpen, links, contentType }) => {
             ))}
         </ul>
         <div className="absolute bottom-2 left-4">
-          <p className="text-secondary text-sm">**This feature is still in development**</p>
+          {user ? (
+            <p className="text-secondary text-sm">**This feature is still in development**</p>
+          ) : (
+            <p className="text-secondary text-sm">**Login to access this feature**</p>
+          )}
         </div>
       </Modal>
     </div>

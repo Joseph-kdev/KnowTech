@@ -66,4 +66,9 @@ const getFeedsData = async (type, userId) => {
    return await parseFeeds(urls);
 };
 
-module.exports = {getFeedsData , addNewUrl}
+const fetchFeedsData = async(type) => {
+    let urls = type === 'news' ? [...newsURLs] : [...feedURLs];
+    return await parseFeeds(urls);
+}
+
+module.exports = {getFeedsData , addNewUrl, fetchFeedsData}

@@ -1,11 +1,11 @@
 const { checkCache, setCache } = require('../middleware/cache');
-const { getFeedsData } = require('../services/feedService');
+const { getFeedsData, fetchFeedsData } = require('../services/feedService');
 const router = require('express').Router();
 
 router.get('/',checkCache("articles"), async (req, res) => {
-    const userId = req.query.userId
+    const userId = req.query.userId || null
     try {
-        const articlesData = await getFeedsData("articles", userId);
+        const articlesData = userId ? await getFeedsData("articles", userId) : await fetchFeedsData("articles");
         await setCache(req.cacheKey, articlesData)
         res.json(articlesData);
     } catch (error) {
