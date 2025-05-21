@@ -120,6 +120,10 @@ export const Feedlist = ({ articles, blogTitle }) => {
       });
     } catch (error) {
       console.error(error);
+      dispatch({
+        type: "summary",
+        payload: "Service is unavailable! Try again later.",
+      })
     }
   };
 
