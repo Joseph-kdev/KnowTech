@@ -1,7 +1,7 @@
 const genAI = require("../config/gemini-start");
 
 const generateSummary = async (actualUrl) => {
-  const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+  const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
   const prompt = `Summarize this blog ${actualUrl} in a concise and informative
    way. In your summary start with the blog's title as a heading.
    At the end of your summary always include a key takeaways section
