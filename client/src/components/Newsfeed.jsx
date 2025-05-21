@@ -11,7 +11,6 @@ import { AiChat } from "./AiChat";
 import { FadeLoader } from "react-spinners";
 
 const NewsPiece = ({ title, link, content, author, pubDate }) => {
-  const { user } = useUserAuth();
   const [launch, setLaunch] = useState(false);
 
   const updateLaunch = () => {
@@ -27,7 +26,6 @@ const NewsPiece = ({ title, link, content, author, pubDate }) => {
     <>
       {launch && (
         <AiChat
-          user={user.uid}
           title={title}
           author={author}
           link={link}
