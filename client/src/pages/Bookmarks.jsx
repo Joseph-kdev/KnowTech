@@ -1,11 +1,9 @@
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
-import React from "react";
 import { db } from "../config/firebase-config";
 import { useUserAuth } from "../config/UserAuthContext";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Nav } from "./Nav";
+import { Nav } from "../components/Nav";
 import { useNavigate } from "react-router-dom";
-import { Flip, toast } from "react-toastify";
 import { DotLoader } from "react-spinners";
 
 const Piece = ({
@@ -141,6 +139,7 @@ export const Bookmarks = () => {
             </li>
           ))}
         </ul>
+        
       </div>
     </>
   );

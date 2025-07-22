@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getFeeds } from '../services/articles'
 import { useQuery } from "@tanstack/react-query"
 import { useContentConfig } from '../config/ContentContext'
 import { decodeHTML } from 'entities'
 import parse from "html-react-parser"
-import { Nav } from './Nav'
+import { Nav } from '../components/Nav'
 import { useUserAuth } from '../config/UserAuthContext'
-import { formatPublicationDate } from './Feedlist'
-import { AiChat } from './AiChat'
+import { formatPublicationDate } from '../components/Feedlist'
+import { AiChat } from '../components/AiChat'
 import { db } from '../config/firebase-config'
 import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore'
 import { DotLoader } from 'react-spinners'

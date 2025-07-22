@@ -1,4 +1,4 @@
-import React, { useReducer} from 'react'
+import { useReducer} from 'react'
 import { auth, googleProvider } from "../config/firebase-config.js"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth'
 import { reducer } from '../config/reducer.js'
@@ -49,7 +49,7 @@ export const Login = () => {
 <div className="flex h-screen">
   <div className="hidden lg:flex items-center justify-center flex-1 text-black">
     <div className="max-w-md text-center">
-      <svg xmlns="http://www.w3.org/2000/svg" width="524.67004" height="531.39694" className="w-full" alt="https://undraw.co/illustrations" title="https://undraw.co/illustrations" viewBox="0 0 524.67004 531.39694" xmlns:xlink="http://www.w3.org/1999/xlink">
+      <svg xmlns="http://www.w3.org/2000/svg" width="524.67004" height="531.39694" className="w-full" alt="https://undraw.co/illustrations" title="https://undraw.co/illustrations" viewBox="0 0 524.67004 531.39694">
         <polygon points="117.67523 88.74385 113.67523 109.74385 133.61763 115.36589 131.1398 92.94604 117.67523 88.74385" fill="#a0616a" />
         <path d="M0,523.44458c0,.66003,.53003,1.19,1.19006,1.19H523.48004c.65997,0,1.19-.52997,1.19-1.19,0-.65997-.53003-1.19-1.19-1.19H1.19006c-.66003,0-1.19006,.53003-1.19006,1.19Z" fill="#D0B89D" />
         <g>

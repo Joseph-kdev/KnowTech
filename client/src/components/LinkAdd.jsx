@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { useUserAuth } from "../config/UserAuthContext";
 import { addRSSFeed, getFeeds } from "../services/articles"
 import { collection, deleteDoc, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase-config";
 import { useContentConfig } from "../config/ContentContext";
-import { Flip, toast } from "react-toastify";
 
 export const LinkAdd = ({ open, setOpen, links, contentType }) => {
   const { user } = useUserAuth()

@@ -22,7 +22,6 @@ export const Nav = () => {
   const toggleTech = () => setTechExpanded(!techExpanded);
   const { user } = useUserAuth();
 
-  console.log("the user",user)
   return (
     <div className="">
       <div className="relative w-full bg-background h-[80px]">

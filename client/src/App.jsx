@@ -1,11 +1,10 @@
-import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Home from './Home'
-import { Login } from './components/Login'
-import { Subpage } from './components/Subpage'
+import { Login } from './pages/Login'
+import { Subpage } from './pages/Subpage'
 import { useContentConfig } from './config/ContentContext'
-import { Bookmarks } from './components/Bookmarks'
+import { Bookmarks } from './pages/Bookmarks'
 import { useUserAuth } from './config/UserAuthContext'
+import Home from './pages/Home'
 
 
 export default function App() {
