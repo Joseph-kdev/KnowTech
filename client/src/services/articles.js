@@ -1,8 +1,8 @@
 import axios from "axios"
 
-const baseURL = "http://localhost:3001/"
+// const baseURL = "http://localhost:3001/"
 
-// const baseURL = import.meta.env.VITE_BACKEND_URL
+const baseURL = import.meta.env.VITE_BACKEND_URL
 
 export const getFeeds = async (type, userId) => {
     const feeds = await axios.get(`${baseURL}api/${type}`, { params: { userId } })
