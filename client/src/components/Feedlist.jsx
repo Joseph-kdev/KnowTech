@@ -79,7 +79,23 @@ const Feed = ({ title, content, link, pubDate, summarize }) => {
   );
 };
 
-export const Feedlist = ({ articles, blogTitle }) => {
+const FeedSkeleton = () => (
+  <div className="flex flex-col my-2 bg-background px-1 py-2 mx-1 animate-pulse">
+    <div className="h-6 bg-gray-600 rounded w-3/4 mb-2"></div>
+    <div className="space-y-2 mt-2">
+      <div className="h-3 bg-gray-700 rounded w-full"></div>
+      <div className="h-3 bg-gray-700 rounded w-full"></div>
+      <div className="h-3 bg-gray-700 rounded w-5/6"></div>
+    </div>
+    <div className="h-3 bg-gray-600 rounded w-1/4 my-4"></div>
+    <div className="flex justify-between mt-auto">
+      <div className="h-4 bg-gray-600 rounded w-20"></div>
+      <div className="h-6 w-6 bg-gray-600 rounded-full"></div>
+    </div>
+  </div>
+);
+
+export const Feedlist = ({ articles, blogTitle, isLoading }) => {
   const [state, dispatch] = useReducer(reducer, {
     showAll: false,
     open: false,
@@ -183,44 +199,54 @@ export const Feedlist = ({ articles, blogTitle }) => {
         {blogTitle}
       </h2>
       <div className="md:grid md:grid-cols-2 lg:grid-cols-3">
-        {articles.slice(0, 6).map((article, index) => (
-          <div key={index}>
-            <Feed
-              title={article.title}
-              content={article.content}
-              pubDate={article.pubDate}
-              link={article.link}
-              summarize={summarize}
-            />
-          </div>
-        ))}
-        {state.showAll &&
-          articles.slice(6).map((article, index) => (
-            <div key={`remaining-${index}`}>
-              <Feed
-                title={article.title}
-                content={article.content}
-                pubDate={article.pubDate}
-                link={article.link}
-                summarize={summarize}
-              />
-            </div>
-          ))}
+        {isLoading ? (
+          Array.from({ length: 6 }).map((_, index) => (
+            <FeedSkeleton key={index} />
+          ))
+        ) : (
+          <>
+            {articles.slice(0, 6).map((article, index) => (
+              <div key={index}>
+                <Feed
+                  title={article.title}
+                  content={article.content}
+                  pubDate={article.pubDate}
+                  link={article.link}
+                  summarize={summarize}
+                />
+              </div>
+            ))}
+            {state.showAll &&
+              articles.slice(6).map((article, index) => (
+                <div key={`remaining-${index}`}>
+                  <Feed
+                    title={article.title}
+                    content={article.content}
+                    pubDate={article.pubDate}
+                    link={article.link}
+                    summarize={summarize}
+                  />
+                </div>
+              ))}
+          </>
+        )}
       </div>
-      <div className='w-full flex justify-center'>
-                <button onClick={toggleShowAll} className='bg-gray-700 hover:bg-gray-500 text-white font-bold my-3 h-8 w-full flex justify-center items-center md:w-[100px] rounded'>
-                    {state.showAll ? 
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-center">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
-                    </svg>
-                    : 
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
-                    </svg>
-                    }
-                </button>
-            </div>
+      {!isLoading && articles.length > 6 && (
+        <div className='w-full flex justify-center'>
+            <button onClick={toggleShowAll} className='bg-gray-700 hover:bg-gray-500 text-white font-bold my-3 h-8 w-full flex justify-center items-center md:w-[100px] rounded'>
+                {state.showAll ? 
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 text-center">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 18.75 7.5-7.5 7.5 7.5" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 7.5-7.5 7.5 7.5" />
+                </svg>
+                : 
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+                </svg>
+                }
+            </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -239,11 +265,6 @@ export const ArticleFeed = () => {
     initialData: articleConfig,
   });
 
-  if (isLoading) {
-    return <div className="h-screen">
-      <FadeLoader />
-    </div>;
-  }
 
   if (isError) {
     return <div className="h-screen">
@@ -284,7 +305,7 @@ const links = [
             </div>
         </div>
       {articleConfig.map(({ key, title }) => (
-        <Feedlist key={key} articles={articles[key] || []} blogTitle={title} />
+        <Feedlist key={key} articles={articles[key] || []} blogTitle={title} isLoading={isLoading} />
       ))}
     </>
   );

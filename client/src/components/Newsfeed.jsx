@@ -88,7 +88,28 @@ const NewsPiece = ({ title, link, content, author, pubDate }) => {
   );
 };
 
-const Newslist = ({ pieces, newsTitle }) => {
+const NewsPieceSkeleton = () => (
+  <div className="p-2 bg-primary mb-2 animate-pulse">
+    <div>
+      <div className="h-6 bg-gray-600 rounded w-3/4 mb-2"></div>
+      <hr className="my-1 border-gray-600" />
+      <div>
+        <div className="h-3 bg-gray-600 rounded w-1/2 mb-2 mt-3"></div>
+      </div>
+      <div className="my-3 space-y-2">
+        <div className="h-3 bg-gray-700 rounded w-full"></div>
+        <div className="h-3 bg-gray-700 rounded w-full"></div>
+        <div className="h-3 bg-gray-700 rounded w-5/6"></div>
+      </div>
+    </div>
+    <div className="flex justify-between mx-1 mt-4 mb-2">
+      <div className="h-6 w-6 bg-gray-600 rounded-full"></div>
+      <div className="h-6 w-6 bg-gray-600 rounded-full"></div>
+    </div>
+  </div>
+);
+
+const Newslist = ({ pieces, newsTitle, isLoading }) => {
   const [showAll, setShowAll] = useState(false);
 
   return (
@@ -97,81 +118,91 @@ const Newslist = ({ pieces, newsTitle }) => {
         {newsTitle}
       </h1>
       <div>
-        {pieces.slice(0, 4).map((piece) => (
-          <div key={piece.title}>
-            <NewsPiece
-              title={piece.title}
-              link={piece.link}
-              content={piece.content ? piece.content : ""}
-              author={
-                piece.author || piece.creator
-                  ? piece.author || piece.creator
-                  : "Unknown"
-              }
-              pubDate={piece.pubDate}
-            />
-          </div>
-        ))}
-        {showAll &&
-          pieces.slice(5).map((piece) => (
-            <div key={piece.title}>
-              <NewsPiece
-                title={piece.title}
-                link={piece.link}
-                content={piece.content ? piece.content : ""}
-                author={
-                  piece.author || piece.creator
-                    ? piece.author || piece.creator
-                    : "Unknown"
-                }
-                pubDate={piece.pubDate}
-              />
-            </div>
-          ))}
+        {isLoading ? (
+          Array.from({ length: 4 }).map((_, index) => (
+            <NewsPieceSkeleton key={index} />
+          ))
+        ) : (
+          <>
+            {pieces.slice(0, 4).map((piece) => (
+              <div key={piece.title}>
+                <NewsPiece
+                  title={piece.title}
+                  link={piece.link}
+                  content={piece.content ? piece.content : ""}
+                  author={
+                    piece.author || piece.creator
+                      ? piece.author || piece.creator
+                      : "Unknown"
+                  }
+                  pubDate={piece.pubDate}
+                />
+              </div>
+            ))}
+            {showAll &&
+              pieces.slice(4).map((piece) => (
+                <div key={piece.title}>
+                  <NewsPiece
+                    title={piece.title}
+                    link={piece.link}
+                    content={piece.content ? piece.content : ""}
+                    author={
+                      piece.author || piece.creator
+                        ? piece.author || piece.creator
+                        : "Unknown"
+                    }
+                    pubDate={piece.pubDate}
+                  />
+                </div>
+              ))}
+          </>
+        )}
       </div>
-      <div className="w-full flex justify-center">
-        <button
-          onClick={() => setShowAll(!showAll)}
-          className="bg-accent hover:bg-gray-500 text-white font-bold mx-6 my-3 h-8 w-full flex justify-center items-center"
-        >
-          {showAll ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6 text-center"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m4.5 18.75 7.5-7.5 7.5 7.5"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m4.5 12.75 7.5-7.5 7.5 7.5"
-              />
-            </svg>
-          ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5"
-              />
-            </svg>
-          )}
-        </button>
-      </div>
+      {!isLoading && pieces.length > 4 && (
+        <div className="w-full flex justify-center">
+          <button
+            onClick={() => setShowAll(!showAll)}
+            className="bg-accent hover:bg-gray-500 text-white font-bold mx-6 my-3 h-8 w-full flex justify-center items-center"
+          >
+            {showAll ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6 text-center"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4.5 18.75 7.5-7.5 7.5 7.5"
+                />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4.5 12.75 7.5-7.5 7.5 7.5"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5"
+                />
+              </svg>
+            )}
+          </button>
+        </div>
+      )}
     </div>
   );
 };
@@ -189,14 +220,6 @@ export const Newsfeed = () => {
     queryFn: () => (user ? getFeeds("news", user.uid) : fetchFeeds("news")),
     initialData: newsConfig,
   });
-
-  if (isLoading) {
-    return (
-      <div className="h-screen">
-        <FadeLoader />
-      </div>
-    );
-  }
 
   if (isError) {
     return (
@@ -263,7 +286,7 @@ export const Newsfeed = () => {
       </div>
       <div className=" md:grid md:grid-cols-3 gap-1 md:h-screen overflow-scroll">
         {newsConfig.map(({ key, title }) => (
-          <Newslist key={key} pieces={news[key] || []} newsTitle={title} />
+          <Newslist key={key} pieces={news[key] || []} newsTitle={title} isLoading={isLoading} />
         ))}
       </div>
     </div>
